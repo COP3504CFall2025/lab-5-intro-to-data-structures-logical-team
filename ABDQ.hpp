@@ -18,7 +18,7 @@ class ABDQ : public DequeInterface<T>
 
 		static constexpr std::size_t SCALE_FACTOR = 2;
 
-		T& m_copy (const T &other)
+		ABDQ<T>& m_copy (const T &other)
 		{
 			if (&other == this) return *this;
 
@@ -42,7 +42,7 @@ class ABDQ : public DequeInterface<T>
 			return *this;
 		}
 
-		T& m_move (T &&other) noexcept
+		ABDQ<T>& m_move (T &&other) noexcept
 		{
 			if (&other == this) return *this;
 
@@ -101,16 +101,13 @@ class ABDQ : public DequeInterface<T>
 	public:
 		// Big 5
 		ABDQ()
-			: capacity_(1), size_(0), front_(0), back_(0)
-		{
-			data_ = new T[1];
-		}
+			: capacity_(1), size_(0), front_(0), back_(0), data_(new T[1])
+		{}
 
 		explicit ABDQ(std::size_t capac)
-			: capacity_(capac), size_(0), front_(0), back_(0)
-		{
-			data_ = new T[capac];
-		}
+			: capacity_(capac), size_(0), front_(0), back_(0), data_(new T[capac])
+		{}
+
 		ABDQ(const ABDQ& other)
 			: capacity_(0), size_(0), front_(0), back_(0), data_(nullptr)
 		{
