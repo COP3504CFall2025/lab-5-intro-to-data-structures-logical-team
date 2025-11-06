@@ -96,10 +96,8 @@ class LinkedList
 			Node* removable = head;
 			Node* newHead = removable->next;
 
-			if (newHead)
-			{
-				newHead->prev = nullptr;
-			}
+			if (newHead) newHead->prev = nullptr;
+			else tail = nullptr;
 
 			head = newHead;
 
@@ -116,10 +114,8 @@ class LinkedList
 			Node* removable = tail;
 			Node* newTail = removable->prev;
 
-			if (newTail)
-			{
-				newTail->next = nullptr;
-			}
+			if (newTail) newTail->next = nullptr;
+			else head = nullptr;
 
 			tail = newTail;
 
