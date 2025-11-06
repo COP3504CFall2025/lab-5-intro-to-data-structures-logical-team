@@ -14,6 +14,16 @@ class LLS : public StackInterface<T> {
 		// Constructor
 		LLS() {}
 
+		void PrintForward ()
+		{
+			list.PrintForward();
+		}
+
+		void PrintReverse ()
+		{
+			list.PrintReverse();
+		}
+
 		// Insertion
 		void push(const T& item) override
 		{
