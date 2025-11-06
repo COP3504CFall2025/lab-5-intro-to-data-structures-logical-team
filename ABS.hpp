@@ -73,16 +73,14 @@ class ABS : public StackInterface<T> {
 			{
 				capacity_ = 1;
 
-				T* newData = new T[1];
-
 				delete[] array_;
-				array_ = newData;
+				array_ = new T[1];
 			}
 			else if (curr_size_ >= capacity_)
 			{
 				T* oldData = array_;
 
-				capacity_ = capacity_ * scale_factor_;
+				capacity_ *= scale_factor_;
 
 				array_ = new T[capacity_];
 
@@ -102,11 +100,15 @@ class ABS : public StackInterface<T> {
 
 		T peek() const override
 		{
+			if (curr_size_ == 0) throw std::runtime_error("cannot peek into empty stack");
+
 			return array_[curr_size_ - 1];
 		}
 
 		T pop() override
 		{
+			if (curr_size_ == 0) throw std::runtime_error("cannot pop from empty stack");
+
 			return array_[--curr_size_];
 		}
 
@@ -145,8 +147,8 @@ class ABS : public StackInterface<T> {
 			array_ = other.array_;
 
 			other.capacity_ = 0;
-			curr_size_ = other.curr_size_;
-			array_ = other.array_;
+			other.curr_size_ = 0;
+			other.array_ = new T[0];
 
 			return *this;
 		}
