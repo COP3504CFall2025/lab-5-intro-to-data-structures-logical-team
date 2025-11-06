@@ -17,7 +17,7 @@ class LinkedList
 	public:
 
 		// Behaviors
-		void PrintForward() const
+		void printForward() const
 		{
 			for (Node<T>* el = head; el != nullptr; el = el->next)
 			{
@@ -41,7 +41,7 @@ class LinkedList
 		{
 			return head;
 		}
-		const Node<T>* getHead() const
+		Node<T>* getHead() const
 		{
 			return head;
 		}
@@ -49,7 +49,7 @@ class LinkedList
 		{
 			return tail;
 		}
-		const Node<T>* getTail() const
+		Node<T>* getTail() const
 		{
 			return tail;
 		}
@@ -58,7 +58,7 @@ class LinkedList
 		void AddHead(const T& data)
 		{
 			Node<T>* prevHead = head;
-			head = new Node{.data = data, .prev = nullptr, .next = prevHead};
+			head = new Node<T>{.data = data, .prev = nullptr, .next = prevHead};
 
 			++count;
 
@@ -68,7 +68,7 @@ class LinkedList
 		void AddTail(const T& data)
 		{
 			Node<T>* prevTail = tail;
-			tail = new Node{.data = data, .prev = prevTail, .next = nullptr};
+			tail = new Node<T>{.data = data, .prev = prevTail, .next = nullptr};
 
 			++count;
 

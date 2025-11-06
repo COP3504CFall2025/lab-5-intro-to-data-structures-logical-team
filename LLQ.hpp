@@ -19,7 +19,7 @@ class LLQ : public QueueInterface<T>
 
 		void PrintForward ()
 		{
-			list.PrintForward();
+			list.printForward();
 		}
 
 		void PrintReverse ()
@@ -36,7 +36,7 @@ class LLQ : public QueueInterface<T>
 		// Deletion
 		T dequeue() override
 		{
-			Node<T>* dequeuedPtr = list.head;
+			Node<T>* dequeuedPtr = list.getHead();
 			if (!dequeuedPtr) throw std::runtime_error("cannot dequeue from empty queue");
 
 			// need to copy the object before removing it from linked list
@@ -51,7 +51,7 @@ class LLQ : public QueueInterface<T>
 		// Access
 		T peek() const override
 		{
-			Node<T>* peeked = list.head;
+			Node<T>* peeked = list.getHead();
 			if (!peeked) throw std::runtime_error("cannot peek into empty queue");
 
 			return peeked->data;

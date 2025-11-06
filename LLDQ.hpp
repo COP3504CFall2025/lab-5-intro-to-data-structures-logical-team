@@ -20,7 +20,7 @@ class LLDQ : public DequeInterface<T>
 
 		void PrintForward ()
 		{
-			list.PrintForward();
+			list.printForward();
 		}
 
 		void PrintReverse ()
