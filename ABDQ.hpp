@@ -138,23 +138,24 @@ class ABDQ : public DequeInterface<T>
 		// Insertion
 		void pushFront(const T& el) override
 		{
-			if (size_ == capacity_) m_upscaleCapac(0);
-
-			data_[back_] == el;
-
-			++size_;
-			back_ = back_ % capacity_ + 1;
-		}
-		void pushBack(const T& el) override
-		{
 			if (size_ == capacity_) m_upscaleCapac(1);
 
 			if (front_ == 0) front_ = capacity_ - 1;
 			else --front_;
 
-			data_[front_] == el;
+			data_[front_] = el;
 
 			++size_;
+		}
+		void pushBack(const T& el) override
+		{
+			if (size_ == capacity_) m_upscaleCapac(0);
+
+			data_[back_ % capacity_] = el;
+
+			++size_;
+			back_ = back_ % capacity_ + 1;
+
 		}
 
 		// Deletion
