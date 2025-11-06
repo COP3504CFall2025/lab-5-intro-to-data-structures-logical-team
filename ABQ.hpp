@@ -69,7 +69,7 @@ class ABQ : public QueueInterface<T>{
 	public:
 		// Constructors + Big 5
 		ABQ()
-			: capacity_(0), front_(0), back_(0), size_(0), array_(new T[0])
+			: capacity_(1), front_(0), back_(0), size_(0), array_(new T[1])
 		{}
 
 		explicit ABQ(const size_t capac)
@@ -164,10 +164,9 @@ class ABQ : public QueueInterface<T>{
 		{
 			if (size_ == 0) throw std::runtime_error("cannot dequeue from empty queue");
 
-			size_t retInd = back_ - 1;
+			size_t retInd = front_;
 
-			--back_;
-			if (back_ == 0) back_ = capacity_;
+			front_ = (front_ + 1) % capacity_;
 
 			--size_;
 
