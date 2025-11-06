@@ -62,7 +62,7 @@ class ABDQ : public DequeInterface<T>
 			return *this;
 		}
 
-		void m_upscaleCapac ()
+		void m_upscaleCapac (size_t offsetRight)
 		{
 			if (capacity_ == 0)
 			{
@@ -83,12 +83,12 @@ class ABDQ : public DequeInterface<T>
 			size_t j = front_;
 			for (size_t i = 0; i < size_; ++i)
 			{
-				data_[i] = oldData[j];
+				data_[(i + offsetRight) % capacity_] = oldData[j];
 				j = (j + 1) % oldCapac;
 			}
 
-			front_ = 0;
-			back_ = size_;
+			front_ = offsetRight;
+			back_ = (size_ + offsetRight) % capacity_;
 
 			delete[] oldData;
 		}
@@ -133,24 +133,64 @@ class ABDQ : public DequeInterface<T>
 		// Insertion
 		void pushFront(const T& el) override
 		{
-			if (size_ == capacity_) m_upscaleCapac();
+			if (size_ == capacity_) m_upscaleCapac(0);
 
 			data_[back_] == el;
 
 			++size_;
 			back_ = back_ % capacity_ + 1;
 		}
-		void pushBack(const T& el) override;
+		void pushBack(const T& el) override
+		{
+			if (size_ == capacity_) m_upscaleCapac(1);
+
+			if (front_ == 0) front_ = capacity_ - 1;
+			else --front_;
+
+			data_[front_] == el;
+
+			++size_;
+		}
 
 		// Deletion
-		T popFront() override;
-		T popBack() override;
+		T popFront() override
+		{
+			if (size_ == 0) throw std::runtime_error("cannot pop from empty deque");
+
+			size_t oldFront = front_;
+
+			--size_;
+			front_ = (front_ + 1) % capacity_;
+
+			return data_[oldFront];
+		}
+		T popBack() override
+		{
+			if (size_ == 0) throw std::runtime_error("cannot pop from empty deque");
+
+			size_t oldBack = back_;
+
+			--size_;
+			--back_;
+			if (back_ == 0) back_ = capacity_;
+
+			return data_[oldBack - 1];
+		}
 
 		// Access
-		const T& front() const override;
-		const T& back() const override;
+		const T& front() const override
+		{
+			return data_[front_];
+		}
+		const T& back() const override
+		{
+			return data_[back_ - 1];
+		}
 
 		// Getters
-		std::size_t getSize() const noexcept override;
+		std::size_t getSize() const noexcept override
+		{
+			return size_;
+		}
 
 };
