@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+#include <iostream>
 #include "Interfaces.hpp"
 
 // Technically bad, but size_t isn't likely to conflict with any client code.
@@ -179,6 +180,27 @@ class ABQ : public QueueInterface<T>{
 			--size_;
 
 			return array_[retInd];
+		}
+
+		void PrintForward ()
+		{
+			size_t j = front_;
+			for (size_t i = 0; i < size_; ++i)
+			{
+				std::cout << array_[j] << std::endl;
+				j = (j + 1) % capacity_;
+			}
+		}
+
+		void PrintReverse ()
+		{
+			size_t j = back_ - 1;
+			for (size_t i = 0; i < size_; ++i)
+			{
+				std::cout << array_[j] << std::endl;
+				if (j == 0) j = capacity_ - 1;
+				else --j;
+			}
 		}
 
 };
