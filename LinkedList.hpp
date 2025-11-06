@@ -173,7 +173,7 @@ class LinkedList
 
 			for (Node* el = other.head; el != nullptr; el = el->next)
 			{
-				AddTail(el->data);
+				addTail(el->data);
 			}
 
 			return *this;
