@@ -27,6 +27,7 @@ class ABS : public StackInterface<T> {
 		}
 
 		ABS(const ABS& other)
+			: array_(nullptr), capacity_(0), curr_size_(0)
 		{
 			m_copy(other);
 		}
@@ -35,6 +36,7 @@ class ABS : public StackInterface<T> {
 			return m_copy(other);
 		}
 		ABS(ABS&& other) noexcept
+			: array_(nullptr), capacity_(0), curr_size_(0)
 		{
 			m_move(std::move(other));
 		}
