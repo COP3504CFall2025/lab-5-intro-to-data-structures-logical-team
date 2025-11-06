@@ -13,21 +13,15 @@ class ABS : public StackInterface<T> {
 	public:
 		// Big 5 + Parameterized Constructor
 		ABS()
-		{
-			array_ = new T[1];
-			capacity_ = 1;
-			curr_size_ = 0;
-		}
+			: capacity_(0), curr_size_(0), array_(new T[0])
+		{}
 
 		explicit ABS(const size_t capac)
-		{
-			array_ = new T[capac];
-			capacity_ = capac;
-			curr_size_ = 0;
-		}
+			: capacity_(capac), curr_size_(0), array_(new T[capac])
+		{}
 
 		ABS(const ABS& other)
-			: array_(nullptr), capacity_(0), curr_size_(0)
+			: capacity_(0), curr_size_(0), array_(nullptr)
 		{
 			m_copy(other);
 		}
@@ -36,7 +30,7 @@ class ABS : public StackInterface<T> {
 			return m_copy(other);
 		}
 		ABS(ABS&& other) noexcept
-			: array_(nullptr), capacity_(0), curr_size_(0)
+			: capacity_(0), curr_size_(0), array_(nullptr)
 		{
 			m_move(std::move(other));
 		}
