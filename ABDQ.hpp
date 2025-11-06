@@ -90,7 +90,7 @@ class ABDQ : public DequeInterface<T>
 			}
 
 			front_ = offsetRight;
-			back_ = (size_ + offsetRight) % capacity_;
+			back_ = (size_ + offsetRight) % newCapac;
 
 			delete[] data_;
 
@@ -181,11 +181,11 @@ class ABDQ : public DequeInterface<T>
 		}
 
 		// Access
-		const T& front() const override
+		T& front() const override
 		{
 			return data_[front_];
 		}
-		const T& back() const override
+		T& back() const override
 		{
 			return data_[back_ - 1];
 		}
