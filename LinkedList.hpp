@@ -53,7 +53,7 @@ class LinkedList
 		}
 
 		// Insertion
-		void addHead(const T& data)
+		void AddHead(const T& data)
 		{
 			Node* prevHead = head;
 			head = new Node{.data = data, .prev = nullptr, .next = prevHead};
@@ -69,7 +69,7 @@ class LinkedList
 
 			if (prevHead) prevHead->prev = head;
 		}
-		void addTail(const T& data)
+		void AddTail(const T& data)
 		{
 			Node* prevTail = tail;
 			tail = new Node{.data = data, .prev = prevTail, .next = nullptr};
@@ -87,7 +87,7 @@ class LinkedList
 		}
 
 		// Removal
-		bool removeHead()
+		bool RemoveHead()
 		{
 			if (!head)
 			{
@@ -108,7 +108,7 @@ class LinkedList
 
 			delete removable;
 		}
-		bool removeTail()
+		bool RemoveTail()
 		{
 			if (!tail)
 			{
@@ -131,13 +131,13 @@ class LinkedList
 		}
 		void Clear()
 		{
-			while (head) removeHead();
+			while (head) RemoveHead();
 		}
 
 		// Operators
 		LinkedList<T>& operator=(LinkedList<T>&& other) noexcept
 		{
-			return m_move(other);
+			return m_move(std::move(other));
 		}
 		LinkedList<T>& operator=(const LinkedList<T>& other)
 		{
@@ -153,7 +153,7 @@ class LinkedList
 		}
 		LinkedList(LinkedList<T>&& other) noexcept
 		{
-			m_move(other);
+			m_move(std::move(other));
 		}
 
 		~LinkedList()
