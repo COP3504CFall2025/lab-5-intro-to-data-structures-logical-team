@@ -69,24 +69,15 @@ class ABQ : public QueueInterface<T>{
 	public:
 		// Constructors + Big 5
 		ABQ()
-		{
-			array_ = new T[0];
-			capacity_ = 0;
-			front_ = 0;
-			back_ = 0;
-			size_ = 0;
-		}
+			: array_(new T[0]), capacity_(0), front_(0), back_(0), size_(0)
+		{}
 
 		explicit ABQ(const size_t capac)
-		{
-			array_ = new T[capac];
-			capacity_ = capac;
-			front_ = 0;
-			back_ = 0;
-			size_ = 0;
-		}
+			: array_(new T[capac]), capacity_(capac), front_(0), back_(0), size_(0)
+		{}
 
 		ABQ(const ABQ& other)
+			: array_(nullptr), capacity_(0), front_(0), back_(0), size_(0)
 		{
 			m_copy(other);
 		}
@@ -95,6 +86,7 @@ class ABQ : public QueueInterface<T>{
 			return m_copy(other);
 		}
 		ABQ(ABQ&& other) noexcept
+			: array_(nullptr), capacity_(0), front_(0), back_(0), size_(0)
 		{
 			m_move(std::move(other));
 		}
