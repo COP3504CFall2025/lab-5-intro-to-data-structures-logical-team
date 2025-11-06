@@ -68,6 +68,7 @@ class LinkedList
 			++count;
 
 			if (prevHead) prevHead->prev = head;
+			else tail = head;
 		}
 		void addTail(const T& data)
 		{
@@ -84,6 +85,7 @@ class LinkedList
 			++count;
 
 			if (prevTail) prevTail->next = tail;
+			else head = tail;
 		}
 
 		// Removal
