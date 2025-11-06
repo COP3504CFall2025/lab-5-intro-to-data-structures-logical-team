@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include "Interfaces.hpp"
 #include <utility>
+#include <iostream>
 
 template <typename T>
 class ABDQ : public DequeInterface<T>
@@ -74,23 +75,27 @@ class ABDQ : public DequeInterface<T>
 				return;
 			}
 
-			size_t oldCapac = capacity_;
-			T* oldData = data_;
+			m_setCapac(capacity_ * SCALE_FACTOR, offsetRight);
+		}
 
-			capacity_ *= SCALE_FACTOR;
-			data_ = new T[capacity_];
+		void m_setCapac (size_t newCapac, size_t offsetRight)
+		{
+			T* newData = new T[newCapac];
 
 			size_t j = front_;
 			for (size_t i = 0; i < size_; ++i)
 			{
-				data_[(i + offsetRight) % capacity_] = oldData[j];
-				j = (j + 1) % oldCapac;
+				newData[(i + offsetRight) % newCapac] = data_[j];
+				j = (j + 1) % capacity_;
 			}
 
 			front_ = offsetRight;
 			back_ = (size_ + offsetRight) % capacity_;
 
-			delete[] oldData;
+			delete[] data_;
+
+			capacity_ = newCapac;
+			data_ = newData;
 		}
 
 	public:
@@ -116,11 +121,11 @@ class ABDQ : public DequeInterface<T>
 		{
 			m_move(std::move(other));
 		}
-		ABDQ& operator=(const ABDQ& other)
+		ABDQ& operator= (const ABDQ& other)
 		{
 			return m_copy(other);
 		}
-		ABDQ& operator=(ABDQ&& other) noexcept
+		ABDQ& operator= (ABDQ&& other) noexcept
 		{
 			return m_move(std::move(other));
 		}
@@ -187,11 +192,41 @@ class ABDQ : public DequeInterface<T>
 			return data_[back_ - 1];
 		}
 
-		void ensureCapacity ();
-		void shrinkIfNeeded ();
+		void ensureCapacity ()
+		{
+			m_setCapac(size_ * 2, 0);
+		}
+		void shrinkIfNeeded ()
+		{
+			if (capacity_ == 0) return;
 
-		void PrintForward ();
-		void PrintReverse ();
+			if (size_ * 2 <= capacity_)
+			{
+				m_setCapac(capacity_ / 2);
+			}
+		}
+
+		void PrintForward ()
+		{
+			size_t j = front_;
+			for (size_t i = 0; i < size_; ++i)
+			{
+				std::cout << data_[j] << std::endl;
+				j = (j + 1) % capacity_;
+			}
+		}
+
+		void PrintReverse ()
+		{
+
+			size_t j = back_ - 1;
+			for (size_t i = 0; i < size_; ++i)
+			{
+				std::cout << data_[j] << std::endl;
+				if (j == 0) j = capacity_ - 1;
+				else --j;
+			}
+		}
 
 		// Getters
 		std::size_t getSize() const noexcept override
