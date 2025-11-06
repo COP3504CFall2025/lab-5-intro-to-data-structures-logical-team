@@ -28,20 +28,20 @@ class LLS : public StackInterface<T>
 		}
 
 		// Insertion
-		void push(const T& item) override
+		void push(const T& el) override
 		{
-			list.AddHead();
+			list.AddHead(el);
 		}
 
 		// Deletion
 		T pop() override
 		{
-			T* poppedPtr = list.getHead();
+			Node<T>* poppedPtr = list.getHead();
 			if (!poppedPtr) throw std::runtime_error("cannot pop from empty stack");
 
 			// need to copy the object before removing it from linked list
 			// because removing it will deallocate the original object
-			T popped = *poppedPtr;
+			T popped = poppedPtr->data;
 
 			list.RemoveHead();
 
@@ -51,9 +51,9 @@ class LLS : public StackInterface<T>
 		// Access
 		T peek() const override
 		{
-			T* peeked = list.getHead();
+			Node<T>* peeked = list.getHead();
 
-			if (peeked) return *peeked;
+			if (peeked) return peeked->data;
 			else throw std::runtime_error("cannot peek into empty stack");
 		}
 
