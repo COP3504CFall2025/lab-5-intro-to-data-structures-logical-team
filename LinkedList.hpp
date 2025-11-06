@@ -127,7 +127,7 @@ class LinkedList
 
 			return true;
 		}
-		void Clear()
+		void clear()
 		{
 			while (head) removeHead();
 		}
@@ -156,7 +156,7 @@ class LinkedList
 
 		~LinkedList()
 		{
-			Clear();
+			clear();
 		}
 
 	private:
@@ -169,7 +169,7 @@ class LinkedList
 		{
 			if (&other == this) return *this;
 
-			Clear();
+			clear();
 
 			for (Node* el = other.head; el != nullptr; el = el->next)
 			{
@@ -182,7 +182,7 @@ class LinkedList
 		{
 			if (&other == this) return *this;
 
-			Clear();
+			clear();
 
 			head = other.head;
 			tail = other.tail;
