@@ -187,6 +187,12 @@ class ABDQ : public DequeInterface<T>
 			return data_[back_ - 1];
 		}
 
+		void ensureCapacity ();
+		void shrinkIfNeeded ();
+
+		void PrintForward ();
+		void PrintReverse ();
+
 		// Getters
 		std::size_t getSize() const noexcept override
 		{
