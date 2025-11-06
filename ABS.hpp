@@ -9,35 +9,146 @@ using std::size_t;
 
 template<typename T>
 class ABS : public StackInterface<T> {
-public:
-    // Big 5 + Parameterized Constructor
-    ABS();
-    explicit ABS(const size_t capacity);
-    ABS(const ABS& other);
-    ABS& operator=(const ABS& rhs);
-    ABS(ABS&& other) noexcept;
-    ABS& operator=(ABS&& rhs) noexcept;
-    ~ABS() noexcept override;
 
-    // Get the number of items in the ABS
-    [[nodiscard]] size_t getSize() const noexcept override;
+	public:
+		// Big 5 + Parameterized Constructor
+		ABS()
+		{
+			array_ = new T[0];
+			capacity_ = 0;
+			curr_size_ = 0;
+		}
 
-    // Get the max size of the ABS
-    [[nodiscard]] size_t getMaxCapacity() const noexcept;
+		explicit ABS(const size_t capac)
+		{
+			array_ = new T[capac];
+			capacity_ = capac;
+			curr_size_ = 0;
+		}
 
-    // Return underlying data for the stack
-    [[nodiscard]] T* getData() const noexcept;
+		ABS(const ABS& other)
+		{
+			m_copy(other);
+		}
+		ABS& operator=(const ABS& other)
+		{
+			return m_copy(other);
+		}
+		ABS(ABS&& other) noexcept
+		{
+			m_move(std::move(other));
+		}
+		ABS& operator=(ABS&& other) noexcept
+		{
+			return m_move(std::move(other));
+		}
+		~ABS() noexcept override
+		{
+			delete[] array_;
+		}
 
-    // Push item onto the stack
-    void push(const T& data) override;
+		// Get the number of items in the ABS
+		[[nodiscard]] size_t getSize() const noexcept override
+		{
+			return curr_size_;
+		}
 
-    T peek() const override;
+		// Get the max size of the ABS
+		[[nodiscard]] size_t getMaxCapacity() const noexcept
+		{
+			return capacity_;
+		}
 
-    T pop() override;
+		// Return underlying data for the stack
+		[[nodiscard]] T* getData() const noexcept
+		{
+			return array_;
+		}
 
-private:
-    size_t capacity_;
-    size_t curr_size_;
-    T* array_;
-    static constexpr size_t scale_factor_ = 2;
+		// Push item onto the stack
+		void push(const T& el) override
+		{
+
+			if (capacity_ == 0)
+			{
+				capacity_ = 1;
+
+				T* newData = new T[1];
+
+				delete[] array_;
+				array_ = newData;
+			}
+			else if (curr_size_ >= capacity_)
+			{
+				T* oldData = array_;
+
+				capacity_ = capacity_ * scale_factor_;
+
+				array_ = new T[capacity_];
+
+				for (size_t i = 0; i < curr_size_; ++i)
+				{
+					array_[i] = oldData[i];
+				}
+
+				delete[] oldData;
+			}
+
+			array_[curr_size_] = el;
+
+			++curr_size_;
+
+		}
+
+		T peek() const override
+		{
+			return array_[curr_size_ - 1];
+		}
+
+		T pop() override
+		{
+			return array_[--curr_size_];
+		}
+
+	private:
+		size_t capacity_;
+		size_t curr_size_;
+		T* array_;
+		static constexpr size_t scale_factor_ = 2;
+
+		ABS& m_copy (const ABS &other)
+		{
+			if (&other == this) return *this;
+
+			if (array_) delete[] array_;
+
+			capacity_ = other.capacity_;
+			curr_size_ = other.curr_size_;
+
+			array_ = new T[other.capacity_];
+
+			for (size_t i = 0; i < curr_size_; ++i)
+			{
+				array_[i] = other.array_[i];
+			}
+
+			return *this;
+		}
+		ABS& m_move (ABS &&other) noexcept
+		{
+			if (&other == this) return *this;
+
+			if (array_) delete[] array_;
+
+			capacity_ = other.capacity_;
+			curr_size_ = other.curr_size_;
+			array_ = other.array_;
+
+			other.capacity_ = 0;
+			curr_size_ = other.curr_size_;
+			array_ = other.array_;
+
+			return *this;
+		}
+
 };
