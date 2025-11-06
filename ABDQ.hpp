@@ -2,9 +2,9 @@
 
 #include <cstddef>
 #include <stdexcept>
-#include "Interfaces.hpp"
 #include <utility>
 #include <iostream>
+#include "Interfaces.hpp"
 
 template <typename T>
 class ABDQ : public DequeInterface<T>
@@ -218,7 +218,6 @@ class ABDQ : public DequeInterface<T>
 
 		void PrintReverse ()
 		{
-
 			size_t j = back_ - 1;
 			for (size_t i = 0; i < size_; ++i)
 			{
