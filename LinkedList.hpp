@@ -53,7 +53,7 @@ class LinkedList
 		}
 
 		// Insertion
-		void AddHead(const T& data)
+		void addHead(const T& data)
 		{
 			Node* prevHead = head;
 			head = new Node{.data = data, .prev = nullptr, .next = prevHead};
@@ -69,7 +69,7 @@ class LinkedList
 
 			if (prevHead) prevHead->prev = head;
 		}
-		void AddTail(const T& data)
+		void addTail(const T& data)
 		{
 			Node* prevTail = tail;
 			tail = new Node{.data = data, .prev = prevTail, .next = nullptr};
@@ -87,12 +87,9 @@ class LinkedList
 		}
 
 		// Removal
-		bool RemoveHead()
+		bool removeHead()
 		{
-			if (!head)
-			{
-				throw std::runtime_error("cannot remove head from empty linked list");
-			}
+			if (!head) return false;
 
 			Node* removable = head;
 			Node* newHead = removable->next;
@@ -107,13 +104,12 @@ class LinkedList
 			--count;
 
 			delete removable;
+
+			return true;
 		}
-		bool RemoveTail()
+		bool removeTail()
 		{
-			if (!tail)
-			{
-				throw std::runtime_error("cannot remove tail from empty linked list");
-			}
+			if (!tail) return false;
 
 			Node* removable = tail;
 			Node* newTail = removable->prev;
@@ -128,10 +124,12 @@ class LinkedList
 			--count;
 
 			delete removable;
+
+			return true;
 		}
 		void Clear()
 		{
-			while (head) RemoveHead();
+			while (head) removeHead();
 		}
 
 		// Operators
