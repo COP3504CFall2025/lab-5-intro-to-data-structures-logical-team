@@ -19,6 +19,9 @@ class StackInterface
 
 };
 
+template <typename T>
+StackInterface<T>::~StackInterface () {}
+
 
 template <typename T>
 class QueueInterface
@@ -34,6 +37,9 @@ class QueueInterface
 		virtual ~QueueInterface () = 0;
 
 };
+
+template <typename T>
+QueueInterface<T>::~QueueInterface () {}
 
 
 template <typename T>
@@ -55,4 +61,7 @@ class DequeInterface
 		virtual ~DequeInterface () = 0;
 
 };
+
+template <typename T>
+DequeInterface<T>::~DequeInterface () {}
 
