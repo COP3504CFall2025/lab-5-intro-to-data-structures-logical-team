@@ -157,7 +157,7 @@ class LinkedList
 
 			for (Node* el = other.head; el != nullptr; el = el->next)
 			{
-				addTail(el->data);
+				AddTail(el->data);
 			}
 
 			return *this;
