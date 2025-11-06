@@ -17,6 +17,16 @@ class LLQ : public QueueInterface<T>
 		LLQ() {}
 		// Default big-five are fine, because this class doesn't directly manage dynamic data
 
+		void PrintForward ()
+		{
+			list.PrintForward();
+		}
+
+		void PrintReverse ()
+		{
+			list.PrintReverse();
+		}
+
 		// Insertion
 		void enqueue(const T& el) override
 		{
