@@ -13,6 +13,7 @@ class LLS : public StackInterface<T> {
 	public:
 		// Constructor
 		LLS() {}
+		// Default big-five are fine, because this class doesn't directly manage dynamic data
 
 		void PrintForward ()
 		{
