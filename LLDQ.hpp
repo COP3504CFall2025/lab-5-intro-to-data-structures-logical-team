@@ -42,37 +42,37 @@ class LLDQ : public DequeInterface<T>
 		// Core Removal Operations
 		T popFront() override
 		{
-			T* poppedPtr = list.getHead();
+			Node<T>* poppedPtr = list.getHead();
 			if (!poppedPtr) throw std::runtime_error("cannot pop from empty deque"); 
 
 			list.RemoveHead();
 
-			return *poppedPtr;
+			return poppedPtr->data;
 		}
 		T popBack() override
 		{
-			T* poppedPtr = list.getTail();
+			Node<T>* poppedPtr = list.getTail();
 			if (!poppedPtr) throw std::runtime_error("cannot pop from empty deque");
 
 			list.RemoveTail();
 
-			return *poppedPtr;
+			return poppedPtr->data;
 		}
 
 		// Element Accessors
 		const T& front() const override
 		{
-			T* frontPtr = list.getHead();
+			Node<T>* frontPtr = list.getHead();
 			if (!frontPtr) throw std::runtime_error("cannot access front of empty deque");
 
-			return *frontPtr;
+			return frontPtr->data;
 		}
 		const T& back() const override
 		{
-			T* backPtr = list.getTail();
+			Node<T>* backPtr = list.getTail();
 			if (!backPtr) throw std::runtime_error("cannot access back of empty deque");
 
-			return *backPtr;
+			return backPtr->data;
 		}
 
 		// Getter

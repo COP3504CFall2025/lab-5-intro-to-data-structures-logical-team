@@ -18,7 +18,7 @@ class ABDQ : public DequeInterface<T>
 
 		static constexpr std::size_t SCALE_FACTOR = 2;
 
-		ABDQ<T>& m_copy (const T &other)
+		ABDQ& m_copy (const ABDQ &other)
 		{
 			if (&other == this) return *this;
 
@@ -42,7 +42,7 @@ class ABDQ : public DequeInterface<T>
 			return *this;
 		}
 
-		ABDQ<T>& m_move (T &&other) noexcept
+		ABDQ& m_move (ABDQ &&other) noexcept
 		{
 			if (&other == this) return *this;
 

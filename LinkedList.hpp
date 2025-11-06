@@ -2,29 +2,31 @@
 #include <iostream>
 
 template <typename T>
+struct Node
+{
+	T data;
+	Node* prev;
+	Node* next;
+};
+
+
+template <typename T>
 class LinkedList
 {
 
 	public:
 
-		struct Node
-		{
-			T data;
-			Node* prev;
-			Node* next;
-		};
-
 		// Behaviors
 		void PrintForward() const
 		{
-			for (Node* el = head; el != nullptr; el = el->next)
+			for (Node<T>* el = head; el != nullptr; el = el->next)
 			{
 				std::cout << el->data << std::endl;
 			}
 		}
 		void PrintReverse() const
 		{
-			for (Node* el = tail; el != nullptr; el = el->prev)
+			for (Node<T>* el = tail; el != nullptr; el = el->prev)
 			{
 				std::cout << el->data << std::endl;
 			}
@@ -35,19 +37,19 @@ class LinkedList
 		{
 			return count;
 		}
-		Node* getHead()
+		Node<T>* getHead()
 		{
 			return head;
 		}
-		const Node* getHead() const
+		const Node<T>* getHead() const
 		{
 			return head;
 		}
-		Node* getTail()
+		Node<T>* getTail()
 		{
 			return tail;
 		}
-		const Node* getTail() const
+		const Node<T>* getTail() const
 		{
 			return tail;
 		}
@@ -55,7 +57,7 @@ class LinkedList
 		// Insertion
 		void AddHead(const T& data)
 		{
-			Node* prevHead = head;
+			Node<T>* prevHead = head;
 			head = new Node{.data = data, .prev = nullptr, .next = prevHead};
 
 			++count;
@@ -65,7 +67,7 @@ class LinkedList
 		}
 		void AddTail(const T& data)
 		{
-			Node* prevTail = tail;
+			Node<T>* prevTail = tail;
 			tail = new Node{.data = data, .prev = prevTail, .next = nullptr};
 
 			++count;
@@ -79,8 +81,8 @@ class LinkedList
 		{
 			if (!head) return false;
 
-			Node* removable = head;
-			Node* newHead = removable->next;
+			Node<T>* removable = head;
+			Node<T>* newHead = removable->next;
 
 			if (newHead) newHead->prev = nullptr;
 			else tail = nullptr;
@@ -97,8 +99,8 @@ class LinkedList
 		{
 			if (!tail) return false;
 
-			Node* removable = tail;
-			Node* newTail = removable->prev;
+			Node<T>* removable = tail;
+			Node<T>* newTail = removable->prev;
 
 			if (newTail) newTail->next = nullptr;
 			else head = nullptr;
@@ -145,8 +147,8 @@ class LinkedList
 
 	private:
 		// Stores pointers to first and last nodes and count
-		Node* head;
-		Node* tail;
+		Node<T>* head;
+		Node<T>* tail;
 		unsigned int count;
 
 		LinkedList<T>& m_copy (const LinkedList<T> &other)
@@ -155,7 +157,7 @@ class LinkedList
 
 			Clear();
 
-			for (Node* el = other.head; el != nullptr; el = el->next)
+			for (Node<T>* el = other.head; el != nullptr; el = el->next)
 			{
 				AddTail(el->data);
 			}
