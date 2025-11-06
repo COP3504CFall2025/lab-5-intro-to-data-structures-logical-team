@@ -6,23 +6,51 @@
 #include <stdexcept>
 
 template <typename T>
-class LLQ : public QueueInterface<T> {
-private:
-    LinkedList<T> list;
-public:
-    // Constructor
-    LLQ();
+class LLQ : public QueueInterface<T>
+{
 
-    // Insertion
-    void enqueue(const T& item) override;
+	private:
+		LinkedList<T> list;
 
-    // Deletion
-    T dequeue() override;
+	public:
+		// Constructor
+		LLQ() {}
+		// Default big-five are fine, because this class doesn't directly manage dynamic data
 
-    // Access
-    T peek() const override;
+		// Insertion
+		void enqueue(const T& el) override
+		{
+			list.AddTail(el);
+		}
 
-    // Getter
-    std::size_t getSize() const noexcept override;
+		// Deletion
+		T dequeue() override
+		{
+			T* dequeuedPtr = list.head;
+			if (!dequeuedPtr) throw std::runtime_error("cannot dequeue from empty queue");
+
+			// need to copy the object before removing it from linked list
+			// because removing it will deallocate the original object
+			T dequeued = *dequeuedPtr;
+
+			list.RemoveHead();
+
+			return dequeued;
+		}
+
+		// Access
+		T peek() const override
+		{
+			T* peeked = list.head;
+			if (!peeked) throw std::runtime_error("cannot peek into empty queue");
+
+			return *peeked;
+		}
+
+		// Getter
+		std::size_t getSize() const noexcept override
+		{
+			return list.getCount();
+		}
 
 };
