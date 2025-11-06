@@ -36,11 +36,16 @@ class LLS : public StackInterface<T>
 		// Deletion
 		T pop() override
 		{
-			T* popped = list.getHead();
+			T* poppedPtr = list.getHead();
+			if (!poppedPtr) throw std::runtime_error("cannot pop from empty stack");
+
+			// need to copy the object before removing it from linked list
+			// because removing it will deallocate the original object
+			T popped = *poppedPtr;
+
 			list.RemoveHead();
 
-			if (popped) return *popped;
-			else throw std::runtime_error("cannot pop from empty stack");
+			return popped;
 		}
 
 		// Access
