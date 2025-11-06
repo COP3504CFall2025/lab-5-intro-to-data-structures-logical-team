@@ -58,13 +58,6 @@ class LinkedList
 			Node* prevHead = head;
 			head = new Node{.data = data, .prev = nullptr, .next = prevHead};
 
-			// check if allocation failed
-			if (!head)
-			{
-				head = prevHead;
-				throw std::runtime_error("could not insert at head");
-			}
-
 			++count;
 
 			if (prevHead) prevHead->prev = head;
@@ -74,13 +67,6 @@ class LinkedList
 		{
 			Node* prevTail = tail;
 			tail = new Node{.data = data, .prev = prevTail, .next = nullptr};
-
-			// check if allocation failed
-			if (!tail)
-			{
-				tail = prevTail;
-				throw std::runtime_error("could not insert at tail");
-			}
 
 			++count;
 
@@ -143,11 +129,11 @@ class LinkedList
 		// Construction/Destruction
 		LinkedList() : head(nullptr), tail(nullptr), count(0) {}
 
-		LinkedList(const LinkedList<T>& other)
+		LinkedList(const LinkedList<T>& other) : head(nullptr), tail(nullptr), count(0)
 		{
 			m_copy(other);
 		}
-		LinkedList(LinkedList<T>&& other) noexcept
+		LinkedList(LinkedList<T>&& other) noexcept : head(nullptr), tail(nullptr), count(0)
 		{
 			m_move(std::move(other));
 		}
