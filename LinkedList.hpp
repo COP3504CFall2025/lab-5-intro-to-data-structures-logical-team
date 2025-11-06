@@ -53,7 +53,7 @@ class LinkedList
 		}
 
 		// Insertion
-		void addHead(const T& data)
+		void AddHead(const T& data)
 		{
 			Node* prevHead = head;
 			head = new Node{.data = data, .prev = nullptr, .next = prevHead};
@@ -63,7 +63,7 @@ class LinkedList
 			if (prevHead) prevHead->prev = head;
 			else tail = head;
 		}
-		void addTail(const T& data)
+		void AddTail(const T& data)
 		{
 			Node* prevTail = tail;
 			tail = new Node{.data = data, .prev = prevTail, .next = nullptr};
@@ -75,7 +75,7 @@ class LinkedList
 		}
 
 		// Removal
-		bool removeHead()
+		bool RemoveHead()
 		{
 			if (!head) return false;
 
@@ -93,7 +93,7 @@ class LinkedList
 
 			return true;
 		}
-		bool removeTail()
+		bool RemoveTail()
 		{
 			if (!tail) return false;
 
@@ -111,9 +111,9 @@ class LinkedList
 
 			return true;
 		}
-		void clear()
+		void Clear()
 		{
-			while (head) removeHead();
+			while (head) RemoveHead();
 		}
 
 		// Operators
@@ -140,7 +140,7 @@ class LinkedList
 
 		~LinkedList()
 		{
-			clear();
+			Clear();
 		}
 
 	private:
@@ -153,7 +153,7 @@ class LinkedList
 		{
 			if (&other == this) return *this;
 
-			clear();
+			Clear();
 
 			for (Node* el = other.head; el != nullptr; el = el->next)
 			{
@@ -166,7 +166,7 @@ class LinkedList
 		{
 			if (&other == this) return *this;
 
-			clear();
+			Clear();
 
 			head = other.head;
 			tail = other.tail;
