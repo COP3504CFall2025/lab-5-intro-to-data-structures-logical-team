@@ -6,7 +6,9 @@
 #include <stdexcept>
 
 template <typename T>
-class LLS : public StackInterface<T> {
+class LLS : public StackInterface<T>
+{
+
 	private:
 		LinkedList<T> list;
 
@@ -55,6 +57,7 @@ class LLS : public StackInterface<T> {
 		{
 			return list.getCount();
 		}
+
 };
 
 
