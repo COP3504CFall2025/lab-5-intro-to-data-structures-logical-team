@@ -15,14 +15,14 @@ class LinkedList
 		};
 
 		// Behaviors
-		void printForward() const
+		void PrintForward() const
 		{
 			for (Node* el = head; el != nullptr; el = el->next)
 			{
 				std::cout << el->data << std::endl;
 			}
 		}
-		void printReverse() const
+		void PrintReverse() const
 		{
 			for (Node* el = tail; el != nullptr; el = el->prev)
 			{
