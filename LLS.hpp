@@ -7,21 +7,43 @@
 
 template <typename T>
 class LLS : public StackInterface<T> {
-private:
-    LinkedList<T> list;
-public:
-    // Constructor
-    LLS();
+	private:
+		LinkedList<T> list;
 
-    // Insertion
-    void push(const T& item) override;
+	public:
+		// Constructor
+		LLS() {}
 
-    // Deletion
-    T pop() override;
+		// Insertion
+		void push(const T& item) override
+		{
+			list.AddHead();
+		}
 
-    // Access
-    T peek() const override;
+		// Deletion
+		T pop() override
+		{
+			T* popped = list.getHead();
+			list.RemoveHead();
 
-    //Getters
-    std::size_t getSize() const noexcept override;
+			if (popped) return *popped;
+			else throw std::runtime_error("cannot pop from empty stack");
+		}
+
+		// Access
+		T peek() const override
+		{
+			T* peeked = list.getHead();
+
+			if (peeked) return *peeked;
+			else throw std::runtime_error("cannot peek into empty stack");
+		}
+
+		//Getters
+		std::size_t getSize() const noexcept override
+		{
+			return list.getCount();
+		}
 };
+
+
