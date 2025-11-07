@@ -117,7 +117,7 @@ class ABS : public StackInterface<T> {
 		{
 			if (capacity_ == 0) return;
 
-			if (curr_size_ * scale_factor_ < capacity_)
+			if (curr_size_ * scale_factor_ <= capacity_)
 			{
 				m_setCapac(capacity_ / scale_factor_);
 			}
