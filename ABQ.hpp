@@ -66,6 +66,29 @@ class ABQ : public QueueInterface<T>{
 			return *this;
 		}
 
+
+		void m_setCapac (size_t newCapac)
+		{
+			T* newData = new T[newCapac];
+
+			size_t j = front_;
+			for (size_t i = 0; i < size_; ++i)
+			{
+				newData[i % newCapac] = array_[j];
+				j = (j + 1) % capacity_;
+			}
+
+			front_ = 0;
+			back_ = size_ % newCapac;
+
+			delete[] array_;
+
+			capacity_ = newCapac;
+			array_ = newData;
+		}
+
+
+
 	public:
 		// Constructors + Big 5
 		ABQ()
@@ -164,13 +187,26 @@ class ABQ : public QueueInterface<T>{
 		{
 			if (size_ == 0) throw std::runtime_error("cannot dequeue from empty queue");
 
-			size_t retInd = front_;
+			// must make copy of element before proceeding
+			T retElement = array_[front_];
 
 			front_ = (front_ + 1) % capacity_;
 
 			--size_;
 
-			return array_[retInd];
+			shrinkIfNeeded();
+
+			return retElement;
+		}
+
+		void shrinkIfNeeded ()
+		{
+			if (capacity_ == 0) return;
+
+			if (size_ * 2 <= capacity_)
+			{
+				m_setCapac(capacity_ / 2);
+			}
 		}
 
 		void PrintForward ()

@@ -183,10 +183,14 @@ class ABDQ : public DequeInterface<T>
 		// Access
 		T& front() const override
 		{
+			if (size_ == 0) throw std::runtime_error("cannot access front of empty deque");
+
 			return data_[front_];
 		}
 		T& back() const override
 		{
+			if (size_ == 0) throw std::runtime_error("cannot access back of empty deque");
+
 			return data_[back_ - 1];
 		}
 
