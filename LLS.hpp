@@ -49,7 +49,7 @@ class LLS : public StackInterface<T>
 		}
 
 		// Access
-		T peek() const override
+		T& peek() const override
 		{
 			Node<T>* peeked = list.getHead();
 

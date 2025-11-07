@@ -49,7 +49,7 @@ class LLQ : public QueueInterface<T>
 		}
 
 		// Access
-		T peek() const override
+		T& peek() const override
 		{
 			Node<T>* peeked = list.getHead();
 			if (!peeked) throw std::runtime_error("cannot peek into empty queue");

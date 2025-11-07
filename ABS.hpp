@@ -94,7 +94,7 @@ class ABS : public StackInterface<T> {
 
 		}
 
-		T peek() const override
+		T& peek() const override
 		{
 			if (curr_size_ == 0) throw std::runtime_error("cannot peek into empty stack");
 

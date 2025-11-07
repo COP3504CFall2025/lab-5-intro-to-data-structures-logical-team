@@ -11,7 +11,7 @@ class StackInterface
 	public:
 		virtual void push (const T& el) = 0;
 		virtual T pop () = 0;
-		virtual T peek () const = 0;
+		virtual T& peek () const = 0;
 
 		virtual std::size_t getSize () const noexcept = 0;
 
@@ -30,7 +30,7 @@ class QueueInterface
 	public:
 		virtual void enqueue (const T& el) = 0;
 		virtual T dequeue () = 0;
-		virtual T peek () const = 0;
+		virtual T& peek () const = 0;
 
 		virtual std::size_t getSize () const noexcept = 0;
 

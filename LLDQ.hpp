@@ -60,14 +60,14 @@ class LLDQ : public DequeInterface<T>
 		}
 
 		// Element Accessors
-		const T& front() const override
+		T& front() const override
 		{
 			Node<T>* frontPtr = list.getHead();
 			if (!frontPtr) throw std::runtime_error("cannot access front of empty deque");
 
 			return frontPtr->data;
 		}
-		const T& back() const override
+		T& back() const override
 		{
 			Node<T>* backPtr = list.getTail();
 			if (!backPtr) throw std::runtime_error("cannot access back of empty deque");

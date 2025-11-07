@@ -108,7 +108,7 @@ class ABQ : public QueueInterface<T>{
 		{
 			return m_copy(other);
 		}
-		ABQ(ABQ&& other) noexcept
+		ABQ(ABQ &&other) noexcept
 			: capacity_(0), front_(0), back_(0), size_(0), array_(nullptr)
 		{
 			m_move(std::move(other));
@@ -175,7 +175,7 @@ class ABQ : public QueueInterface<T>{
 		}
 
 		// Access
-		T peek() const override
+		T& peek() const override
 		{
 			if (size_ == 0) throw std::runtime_error("cannot peek into empty queue");
 
