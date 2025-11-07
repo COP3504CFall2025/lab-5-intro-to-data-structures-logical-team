@@ -208,7 +208,7 @@ class ABQ : public QueueInterface<T>{
 
 			if (size_ * scale_factor_ * 2 <= capacity_)
 			{
-				m_setCapac(capacity_ / scale_factor_ * 2);
+				m_setCapac(capacity_ / scale_factor_);
 			}
 		}
 
