@@ -17,14 +17,17 @@ class LinkedList
 	public:
 
 		// Behaviors
-		void printForward() const
+		void printForward () const { PrintForward(); }
+		void printReverse () const { PrintReverse(); }
+
+		void PrintForward () const
 		{
 			for (Node<T>* el = head; el != nullptr; el = el->next)
 			{
 				std::cout << el->data << std::endl;
 			}
 		}
-		void PrintReverse() const
+		void PrintReverse () const
 		{
 			for (Node<T>* el = tail; el != nullptr; el = el->prev)
 			{
@@ -33,23 +36,23 @@ class LinkedList
 		}
 
 		// Accessors
-		[[nodiscard]] unsigned int getCount() const
+		[[nodiscard]] unsigned int getCount () const
 		{
 			return count;
 		}
-		Node<T>* getHead()
+		Node<T>* getHead ()
 		{
 			return head;
 		}
-		Node<T>* getHead() const
+		Node<T>* getHead () const
 		{
 			return head;
 		}
-		Node<T>* getTail()
+		Node<T>* getTail ()
 		{
 			return tail;
 		}
-		Node<T>* getTail() const
+		Node<T>* getTail () const
 		{
 			return tail;
 		}
@@ -58,7 +61,7 @@ class LinkedList
 		void addHead (const T& data) { AddHead(data); }
 		void addTail (const T& data) { AddTail(data); }
 
-		void AddHead(const T& data)
+		void AddHead (const T& data)
 		{
 			Node<T>* prevHead = head;
 			head = new Node<T>{.data = data, .prev = nullptr, .next = prevHead};
@@ -68,7 +71,7 @@ class LinkedList
 			if (prevHead) prevHead->prev = head;
 			else tail = head;
 		}
-		void AddTail(const T& data)
+		void AddTail (const T& data)
 		{
 			Node<T>* prevTail = tail;
 			tail = new Node<T>{.data = data, .prev = prevTail, .next = nullptr};
@@ -83,7 +86,7 @@ class LinkedList
 		bool removeHead () { return RemoveHead(); }
 		bool removeTail () { return RemoveTail(); }
 
-		bool RemoveHead()
+		bool RemoveHead ()
 		{
 			if (!head) return false;
 
@@ -101,7 +104,7 @@ class LinkedList
 
 			return true;
 		}
-		bool RemoveTail()
+		bool RemoveTail ()
 		{
 			if (!tail) return false;
 
@@ -121,7 +124,7 @@ class LinkedList
 		}
 
 		void clear () { Clear(); }
-		void Clear()
+		void Clear ()
 		{
 			while (head) RemoveHead();
 		}
@@ -137,9 +140,9 @@ class LinkedList
 		}
 
 		// Construction/Destruction
-		LinkedList() : head(nullptr), tail(nullptr), count(0) {}
+		LinkedList () : head(nullptr), tail(nullptr), count(0) {}
 
-		LinkedList(const LinkedList<T>& other) : head(nullptr), tail(nullptr), count(0)
+		LinkedList (const LinkedList<T>& other) : head(nullptr), tail(nullptr), count(0)
 		{
 			m_copy(other);
 		}
@@ -148,7 +151,7 @@ class LinkedList
 			m_move(std::move(other));
 		}
 
-		~LinkedList()
+		~LinkedList ()
 		{
 			Clear();
 		}
