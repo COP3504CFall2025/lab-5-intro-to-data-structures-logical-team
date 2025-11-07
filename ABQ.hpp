@@ -197,7 +197,7 @@ class ABQ : public QueueInterface<T>{
 
 			--size_;
 
-			shrinkIfNeeded();
+			//shrinkIfNeeded();
 
 			return retElement;
 		}
@@ -206,7 +206,7 @@ class ABQ : public QueueInterface<T>{
 		{
 			if (capacity_ == 0) return;
 
-			if (size_ * scale_factor_ < capacity_)
+			if (size_ * scale_factor_ <= capacity_)
 			{
 				m_setCapac(capacity_ / scale_factor_);
 			}
