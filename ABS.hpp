@@ -13,7 +13,7 @@ class ABS : public StackInterface<T> {
 	public:
 		// Big 5 + Parameterized Constructor
 		ABS()
-			: capacity_(0), curr_size_(0), array_(new T[0])
+			: capacity_(1), curr_size_(0), array_(new T[1])
 		{}
 
 		explicit ABS(const size_t capac)
@@ -105,8 +105,24 @@ class ABS : public StackInterface<T> {
 		{
 			if (curr_size_ == 0) throw std::runtime_error("cannot pop from empty stack");
 
-			return array_[--curr_size_];
+			// copy last element and pop it before proceeding
+			T retElement = array_[--curr_size_];
+
+			shrinkIfNeeded();
+
+			return retElement;
 		}
+
+		void shrinkIfNeeded ()
+		{
+			if (capacity_ == 0) return;
+
+			if (curr_size_ * scale_factor_ <= capacity_)
+			{
+				m_setCapac(capacity_ / scale_factor_);
+			}
+		}
+
 
 	private:
 		size_t capacity_;
@@ -147,6 +163,21 @@ class ABS : public StackInterface<T> {
 			other.array_ = new T[0];
 
 			return *this;
+		}
+
+		void m_setCapac (size_t capac)
+		{
+			T* newData = new T[capac];
+
+			for (size_t i = 0; i < curr_size_; ++i)
+			{
+				newData[i] = array_[i];
+			}
+
+			delete[] array_;
+
+			array_ = newData;
+			capacity_ = capac;
 		}
 
 };

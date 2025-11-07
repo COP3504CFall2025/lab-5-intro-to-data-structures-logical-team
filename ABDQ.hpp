@@ -196,15 +196,15 @@ class ABDQ : public DequeInterface<T>
 
 		void ensureCapacity ()
 		{
-			m_setCapac(size_ * 2, 0);
+			m_setCapac(size_ * SCALE_FACTOR, 0);
 		}
 		void shrinkIfNeeded ()
 		{
 			if (capacity_ == 0) return;
 
-			if (size_ * 2 <= capacity_)
+			if (size_ * SCALE_FACTOR <= capacity_)
 			{
-				m_setCapac(capacity_ / 2);
+				m_setCapac(capacity_ / SCALE_FACTOR);
 			}
 		}
 
