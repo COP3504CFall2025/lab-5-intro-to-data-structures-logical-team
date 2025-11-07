@@ -105,14 +105,19 @@ class ABS : public StackInterface<T> {
 		{
 			if (curr_size_ == 0) throw std::runtime_error("cannot pop from empty stack");
 
-			return array_[--curr_size_];
+			// copy last element and pop it before proceeding
+			T retElement = array_[--curr_size_];
+
+			shrinkIfNeeded();
+
+			return retElement;
 		}
 
 		void shrinkIfNeeded ()
 		{
 			if (capacity_ == 0) return;
 
-			if (curr_size_ * scale_factor_ <= capacity_)
+			if (curr_size_ * scale_factor_ < capacity_)
 			{
 				m_setCapac(capacity_ / scale_factor_);
 			}

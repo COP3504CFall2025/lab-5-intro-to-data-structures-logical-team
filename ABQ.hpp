@@ -69,6 +69,8 @@ class ABQ : public QueueInterface<T>{
 
 		void m_setCapac (size_t newCapac)
 		{
+			if (newCapac < size_) throw std::runtime_error("cannot shrink capacity to less than current size");
+
 			T* newData = new T[newCapac];
 
 			size_t j = front_;
@@ -79,7 +81,8 @@ class ABQ : public QueueInterface<T>{
 			}
 
 			front_ = 0;
-			back_ = size_ % newCapac;
+			if (newCapac > 0) back_ = size_ % newCapac;
+			else back_ = 0;
 
 			delete[] array_;
 
