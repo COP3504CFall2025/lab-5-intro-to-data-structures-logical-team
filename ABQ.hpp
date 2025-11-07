@@ -61,7 +61,7 @@ class ABQ : public QueueInterface<T>{
 			other.front_ = 0;
 			other.back_ = 0;
 			other.size_ = 0;
-			other.array_ = new T[0];
+			other.array_ = nullptr;
 
 			return *this;
 		}

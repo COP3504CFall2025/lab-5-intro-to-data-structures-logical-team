@@ -55,6 +55,9 @@ class LinkedList
 		}
 
 		// Insertion
+		void addHead (const T& data) { AddHead(data); }
+		void addTail (const T& data) { AddTail(data); }
+
 		void AddHead(const T& data)
 		{
 			Node<T>* prevHead = head;
@@ -77,6 +80,9 @@ class LinkedList
 		}
 
 		// Removal
+		bool removeHead () { return RemoveHead(); }
+		bool removeTail () { return RemoveTail(); }
+
 		bool RemoveHead()
 		{
 			if (!head) return false;
@@ -113,6 +119,8 @@ class LinkedList
 
 			return true;
 		}
+
+		void clear () { Clear(); }
 		void Clear()
 		{
 			while (head) RemoveHead();
